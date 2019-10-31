@@ -5,3 +5,4 @@ Recipe database, with stocked ingredients tracking for users and "*what can I ma
 Also user account creation, log-in etc. 
 ## Current database diagram
 ![diagram](https://github.com/jjjjm/Tsoha-RecipeDatabase/blob/master/documentation/current_db_diagram.png)
+**Note:** Rudimentary draft, will be subject to change
