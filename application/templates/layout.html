@@ -2,16 +2,24 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <title>TodoApp</title>
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+  <title>Formulas for human consumption</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
-  {% block body %}
-  <p>
-    Content.
-  </p>
-  {% endblock %}
+  <div class="sidenav">
+    <a href="{{ url_for('index')}}">Main page</a>
+    <a href="{{ url_for('ingredient_index') }}">List ingredients</a>
+    <a href="{{ url_for('ingredient_form') }}">Add ingredients</a>
+  </div>
+  <div class = "main">
+    {% block body %}
+    <p>
+      Site specific content
+    </p>
+    {% endblock %}
+  </div>
 </body>
 
 </html>

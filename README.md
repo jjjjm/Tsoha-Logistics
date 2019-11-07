@@ -1,5 +1,9 @@
 # Tsoha-RecipeDatabse
 
+## Heroku
+[Link to heroku](https://tsoha-recipes.herokuapp.com/)
+
+## Definition
 Project for TSOHA course.  
 Online cookbook. Usage is for storing recipes, keeping inventory and possible sharing them with other users.  
 The main idea is to have **what can I currently make** search, which can atleast be used with the user specific inventory which needs to be updated to work.
