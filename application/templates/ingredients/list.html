@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<table>
+    <tr>
+        <th>Ingredient</th>
+        <th>Unit of measure</th>
+        <th>New measurement unit</th>
+    </tr>
+    {% for ing in ingredients %}
+    <tr>
+        <td>{{ ing.name }}</td>
+        <td>{{ ing.measurement_unit}}</td>
+        <td>
+            <form method="POST" action="{{ url_for('ingredient_update', id=ing.id) }}">
+                <input type="text" name="new_measurement" value = "{{ ing.measurement_unit}}"/>
+                <input type="Submit" value="Change unit" />
+            </form>
+        </td>
+        <td>
+            <form method="POST" action="{{ url_for('ingredient_update', id=ing.id) }}">
+                <input type="Submit" value="Delete" name="delete" />
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
