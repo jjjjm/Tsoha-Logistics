@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% if current_user.is_authenticated %}
+<p>Logged in as: {{ current_user.username }}</p>
+<a href="{{ url_for('auth_logout') }}">Logout</a>
+{% else %}
+<form method="POST" action="{{ url_for('auth_login') }}">
+      <table>
+            <tr>
+                  <td>{{ form.username.label }}</td>
+                  <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                  <td>{{ form.password.label }}</td>
+                  <td>{{ form.password }}</td>
+            </tr>
+            <tr>
+                  <td colspan="2"><input type="submit" value="Login" /></td>
+            </tr>
+</form>
+{% endif %}
+<font color="red">{{error}}</font>
+<font color="green">{{success}}</font>
+{% endblock %}
