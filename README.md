@@ -3,6 +3,10 @@
 ## Heroku
 [Link to heroku](https://tsoha-recipes.herokuapp.com/)
 
+## Test user guide
+[Test account + how to use](https://github.com/jjjjm/Tsoha-RecipeDatabase/blob/master/documentation/how_to_use.md)
+
+
 ## Definition
 Project for TSOHA course.  
 Online cookbook. Usage is for storing recipes, keeping inventory and possible sharing them with other users.  
