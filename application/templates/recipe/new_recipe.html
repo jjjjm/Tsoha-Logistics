@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1>Add new ingredient</h1>
+    <form method="POST" action="{{ url_for('recipe_new') }}">
+        <table>
+            {% for error in new_error %}
+            <tr font=red>{{ error }}</tr>
+            {% endfor %}
+            {% for field in recipe_form %}
+            <tr>
+                <td>{{ field.label }}</td>
+                <td>{{ field }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="2"><input type="submit" value="Add new recipe" />
+            </tr>
+        </table>
+    </form>
+{% endblock %}

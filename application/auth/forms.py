@@ -13,7 +13,8 @@ class LoginForm(FlaskForm):
 class NewUserForm(FlaskForm):
     username = StringField("Username", 
     validators=[DataRequired(), Length(min=2,max=144)])
-    password = PasswordField("Password", [Length(min=6,max=144) , equal_to("passwordRepeat", message="Please match the passwords")])
+    password = PasswordField("Password", [Length(min=6,max=144, message="Password needs to be atleast 6 characters long") , 
+                                         equal_to("passwordRepeat", message="Please match the passwords")])
     passwordRepeat = PasswordField("Repeat password", validators=[])
 
     

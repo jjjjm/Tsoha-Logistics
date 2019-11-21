@@ -31,6 +31,10 @@ from application.ingredients import views
 from application.auth import models
 from application.auth import views
 
+#Recipe
+from application.recipe import models
+from application.recipe import views
+
 # Login handling
 from application.auth.models import User
 from os import urandom
