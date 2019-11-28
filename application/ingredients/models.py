@@ -16,7 +16,7 @@ class Ingredient(db.Model):
                      "FROM Ingredient "
                      "INNER JOIN Ingredient_User "
                      "ON Ingredient.id = Ingredient_User.ingredient_id "
-                     "AND Ingredient_user.user_id = 5")
+                     "AND Ingredient_user.user_id = " + str(user_id))
 
         rsp = []
         for row in db.engine.execute(query):

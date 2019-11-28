@@ -6,7 +6,7 @@ from wtforms.validators import (DataRequired,Length,NumberRange)
 class IngredientForm(FlaskForm):
     name = StringField("Ingredient name",validators=[Length(max=144),DataRequired("Name is needed")])
     measurement_unit = StringField("Measurement unit",validators=[Length(max=144),DataRequired("Unit of measure is needed")])
-    amount = FloatField("Amount", widget=NumberInput(step=0.001), 
+    amount = FloatField("Amount", widget=NumberInput(step=0.001, min = 0), 
                                   validators=[DataRequired("Amount needed"), NumberRange(min=0,message="Amount needs to be atleast 0")])
 
     class Meta:
@@ -16,7 +16,7 @@ class IngredientEditForm(FlaskForm):
     id = IntegerField("id")
     name = StringField("Ingredient name", validators=[Length(max=144),DataRequired("Name is needed")])
     measurement_unit = StringField("Measurement unit", validators=[Length(max=144),DataRequired("Unit of measure is needed")])
-    amount = FloatField("Amount", widget=NumberInput(),
+    amount = FloatField("Amount", widget=NumberInput(step=0.001, min = 0),
                                   validators=[DataRequired("Amount needed"), NumberRange(min=0,message="Amount needs to be atleast 0")])
 
     class Meta:

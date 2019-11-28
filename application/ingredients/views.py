@@ -39,11 +39,11 @@ def ingredient_form():
 @login_required
 def ingredient_update(id):
     updated_ingredient = Ingredient.query.get(id)
-    updated_amount = IngredientUser.query.get((id,current_user.id))
+    updated_ingredientUser = IngredientUser.query.get((id,current_user.id))
     query_type = request.args.get("type")
     if query_type == "delete":
-        db.session.delete(updated_ingredient)
-        db.session.delete()
+        db.session.delete(updated_ingredientUser)
+        db.session.commit()
     else:
         update_form = IngredientEditForm(request.form)
         #Return site with errors if form validation check doesnt work
@@ -53,7 +53,7 @@ def ingredient_update(id):
                                 edit_form = IngredientEditForm(),
                                 ingredients = Ingredient.find_by_user(current_user.id),
                                 new_error = update_form.errors.items())
-        updated_amount.amount = request.form.get("amount")
+        updated_ingredientUser.amount = request.form.get("amount")
         updated_ingredient.name = request.form.get("name")
         updated_ingredient.measurement_unit = request.form.get("measurement_unit")
         db.session().commit()

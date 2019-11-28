@@ -6,17 +6,11 @@
         <div class="col-sm">
             <h2>Recipe name</h2>
         </div>
-        <div class="col-sm">
-            <h2>Instructions</h2>
-        </div>
     </div>
     {% for rcp in recipe %}
     <div class="row">
         <div class="col-sm">
-            <p>{{ rcp.name }}</p>
-        </div>
-        <div class="col-sm">
-            <p>{{ rcp.instructions }}</p>
+            <p><a href="{{url_for('recipe_individual', id = rcp.id)}}">{{ rcp.name }}</a></p>
         </div>
     </div>
     {% endfor %}

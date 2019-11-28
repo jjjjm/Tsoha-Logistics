@@ -7,6 +7,10 @@ from application.recipe.models import Recipe,RecipeIngredient
 from application.recipe.forms import RecipeForm
 from application.ingredients.models import Ingredient
 
+@app.route("/recipe/<id>", methods = ["GET"])
+def recipe_individual(id):
+    return render_template("recipe/single_recipe.html", recipe = Recipe.query.get(id), 
+                                                        recipe_ingredients = Recipe.ingredients_for_recipe(id))
 
 @app.route("/recipes/", methods = ["GET"])
 def recipe_index():
@@ -19,7 +23,7 @@ def recipe_new():
         form = RecipeForm()
         ingredients = []
         for ingredient in Ingredient.query.all():
-            ingredients.append({ingredient.id,ingredient.name})
+            ingredients.append((ingredient.id,ingredient.name))
         form.ingredients.choices = ingredients
         form.process()
         return render_template("recipe/new_recipe.html", recipe_form = form)
@@ -27,7 +31,9 @@ def recipe_new():
         new_recipe = Recipe(request.form.get("name"),request.form.get("instructions"))
         db.session.add(new_recipe)
         db.session.commit()
-        print("AAAAAAAAAAAAAA")
-        print(request.form)
-        print("BBBBBBBBBBBBBBB")
+        print(request.form.getlist("ingredients"))
+        for ingredient_id in request.form.getlist("ingredients"):
+            new_RecipeIngredient = RecipeIngredient(new_recipe.id,ingredient_id)
+            db.session.add(new_RecipeIngredient)
+        db.session.commit()
         return redirect(url_for("recipe_index"))
