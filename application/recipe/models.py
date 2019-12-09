@@ -33,9 +33,9 @@ class Recipe(db.Model):
         ingredient_keywords = []
         for keyword_number in range(len(keywords)):
             recipe_keywords.append(
-                "recipe_name LIKE :b{}".format(keyword_number))
+                "r.name LIKE :b{}".format(keyword_number))
             recipe_keywords.append(
-                "ingredient_name LIKE :b{}".format(keyword_number))
+                "i.name LIKE :b{}".format(keyword_number))
         return " OR ".join(recipe_keywords + ingredient_keywords)
 
     @staticmethod
