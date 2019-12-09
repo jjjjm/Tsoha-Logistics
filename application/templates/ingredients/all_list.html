@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div style=float:left>
+    <div>
+        <h1>All ingredients</h1>
+        {% for error in errors %}
+        <font color="red">{{error}}</font>
+        {% endfor %}
+        <h2>Select ones you want to add to your own inventory</h2>
+        <table>
+            <tr>
+                <th>Select to add</th>
+                <th>Ingredient</th>
+                <th>Unit of measure</th>
+                <th>Initial amount</th>
+            </tr>
+            <form method="POST" action="{{ url_for('ingredient_listing', type='add' )}}">
+                {% for ingredient,form in add_forms %}
+                <tr>
+                    <td><input id="is_selected" name="selected" type="checkbox" value={{ingredient.id}}></td>
+                    <td>{{ ingredient.name }}</td>
+                    <td>{{ ingredient.measurement_unit}}</td>
+                    <td>{{form.amount}}</td>
+                </tr>
+                {% endfor %}
+        </table>
+        <input type="submit" value="Add all selected ingredients" />
+        </form>
+    </div>
+</div>
+{% endblock %}

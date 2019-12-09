@@ -1,40 +1,38 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div style=float:left>
-    <div>
-        <h1>Ingredient listing</h1>
-        <table>
-            <tr>
-                <th>Ingredient</th>
-                <th>Unit of measure</th>
-                <th>Amount in stock</th>
-                <th>New name</th>
-                <th>New unit</th>
-                <th>New amount</th>
-            </tr>
-            {% for ing in ingredients %}
-            <tr>
-                <td>{{ ing.name }}</td>
-                <td>{{ ing.measurement_unit}}</td>
-                <td>{{ ing.amount }}</td>
-                <form method="POST" action="{{ url_for('ingredient_update', id=ing.id, type='edit' )}}">
-                    <td>{{ edit_form.name }}</td>
-                    <td>{{ edit_form.measurement_unit }}</td>
-                    <td>{{ edit_form.amount }}</td>
-                    <td colspan="2"><input type="submit" value="Edit" />
+<div class="col-md-6">
+    <h1>Ingredient listing</h1>
+    <table>
+        <tr>
+            <th>Ingredient</th>
+            <th>Unit of measure</th>
+            <th>Amount in stock</th>
+            <th>New name</th>
+            <th>New unit</th>
+            <th>New amount</th>
+        </tr>
+        {% for ing in ingredients %}
+        <tr>
+            <td>{{ ing.name }}</td>
+            <td>{{ ing.measurement_unit}}</td>
+            <td>{{ ing.amount }}</td>
+            <form method="POST" action="{{ url_for('ingredient_update', id=ing.id, type='edit' )}}">
+                <td>{{ edit_form.name }}</td>
+                <td>{{ edit_form.measurement_unit }}</td>
+                <td>{{ edit_form.amount }}</td>
+                <td colspan="2"><input type="submit" value="Edit" />
+            </form>
+            <td>
+                <form method="POST" action="{{ url_for('ingredient_update', id=ing.id, type='delete' )}}">
+            <td colspan="2"><input type="submit" value="Delete" />
                 </form>
-                <td>
-                    <form method="POST" action="{{ url_for('ingredient_update', id=ing.id, type='delete' )}}">
-                <td colspan="2"><input type="submit" value="Delete" />
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
-<div style=float:right>
+<div class="col-md-6">
     <h2>Add new ingredient</h2>
     <div class="row">
         <form method="POST" action="{{ url_for('ingredient_form') }}">

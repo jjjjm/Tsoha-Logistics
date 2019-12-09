@@ -1,9 +1,33 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user,logout_user,login_required
+from flask_login import login_user,logout_user
+from application import login_required
 
 from application import (app,db)
 from application.auth.models import User
+from application.ingredients.models import Ingredient
+from application.recipe.models import Recipe
 from application.auth.forms import LoginForm,NewUserForm
+
+@app.route("/admin/", methods = ["GET", "POST"])
+@login_required(role="ADMIN")
+def admin_page():
+    if request.method == "POST":
+        query_type = request.args.get("type")
+        query_id = request.args.get("id")
+        if query_type == "user":
+            user = User.query.get(query_id)
+            db.session.delete(user)
+        if query_type == "ingredient":
+            ingredient = Ingredient.query.get(query_id)
+            db.session.delete(ingredient)
+        if query_type == "recipe":
+            recipe = Recipe.query.get(query_id)
+            db.session.delete(recipe)
+        db.session.commit()
+    
+    return render_template("auth/adminpage.html", users = User.query.all(), 
+                                                  recipes = Recipe.query.all(),
+                                                  ingredients = Ingredient.query.all())
 
 @app.route("/login/", methods = ["GET","POST"])
 def auth_login():
@@ -33,7 +57,7 @@ def auth_new():
 
 
 @app.route("/logout/")
-@login_required
+@login_required()
 def auth_logout():
     logout_user()
     return redirect(url_for("index"))

@@ -1,7 +1,7 @@
 /* Ugly copypaste for now, dont judge too harshly plz */
 .sidenav {
     height: 100%;
-    width: 160px;
+    width: 10%;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -9,6 +9,8 @@
     background-color: #111;
     overflow-x: hidden;
     padding-top: 20px;
+    padding-bottom: 15%;
+    word-wrap: break-word 
   }
   
   .sidenav a {

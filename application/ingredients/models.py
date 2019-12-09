@@ -16,7 +16,7 @@ class Ingredient(db.Model):
                      "FROM Ingredient "
                      "INNER JOIN Ingredient_User "
                      "ON Ingredient.id = Ingredient_User.ingredient_id "
-                     "AND Ingredient_user.user_id = " + str(user_id))
+                     "AND Ingredient_user.user_id = :id").params(id=user_id)
 
         rsp = []
         for row in db.engine.execute(query):
@@ -25,8 +25,8 @@ class Ingredient(db.Model):
         return rsp
 
 class IngredientUser(db.Model):
-    ingredient_id = db.Column(db.Integer, db.ForeignKey('ingredient.id'), primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    ingredient_id = db.Column(db.Integer, db.ForeignKey('ingredient.id', ondelete='CASCADE'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), primary_key=True)
     amount = db.Column(db.Float, nullable=False)
 
     def __init__(self, ingredient_id, user_id, amount):
