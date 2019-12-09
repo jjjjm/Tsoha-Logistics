@@ -71,7 +71,7 @@ class Recipe(db.Model):
         query = text("SELECT DISTINCT r.id as id ,r.name as name "
                      " FROM Recipe r "
                      " INNER JOIN Recipe_Ingredient ri ON r.id = ri.recipe_id "
-                     " LEFT JOIN Ingredient_User iu "
+                     " LEFT JOIN Ingredient_User iu ON ri.ingredient_id = iu.ingredient_id"
                      " WHERE iu.user_id = :id AND iu.amount >= ri.amount").params(id=user_id)
         rsp = []
         for row in db.engine.execute(query):
