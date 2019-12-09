@@ -27,7 +27,7 @@ def ingredient_listing():
     if request.method == "GET":
         return render_template("ingredients/all_list.html", add_forms=form_and_value_tuples)
     else:
-        for selected_ingredient in request.form.get("selected"):
+        for selected_ingredient in request.form.getlist("selected"):
             if any(listing.get("id") == int(selected_ingredient) for listing in Ingredient.find_by_user(current_user.id)):
                 return render_template("ingredients/all_list.html", add_forms=form_and_value_tuples,
                                        errors=["Can't add ingredients you already have"])
@@ -36,7 +36,7 @@ def ingredient_listing():
                     "amount-{}".format(selected_ingredient)))
                 db.session.add(newListing)
                 db.session.commit()
-                return redirect(url_for("ingredient_index"))
+        return redirect(url_for("ingredient_index"))
 
 # POST handler for new additions to db
 @app.route("/ingredients/new/", methods=["POST"])
