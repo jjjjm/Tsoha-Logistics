@@ -65,7 +65,6 @@ def ingredient_form():
 @app.route("/ingredients/<id>", methods=["POST"])
 @login_required
 def ingredient_update(id):
-    updated_ingredient = Ingredient.query.get(id)
     updated_ingredientUser = IngredientUser.query.get((id, current_user.id))
     query_type = request.args.get("type")
     if query_type == "delete":
@@ -82,8 +81,5 @@ def ingredient_update(id):
                                        current_user.id),
                                    new_error=update_form.errors.items())
         updated_ingredientUser.amount = request.form.get("amount")
-        updated_ingredient.name = request.form.get("name")
-        updated_ingredient.measurement_unit = request.form.get(
-            "measurement_unit")
         db.session().commit()
     return redirect(url_for("ingredient_index"))
