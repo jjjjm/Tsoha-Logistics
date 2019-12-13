@@ -1,5 +1,5 @@
 # Use cases and the SQL queries used in them
-All ``?`` in queries represent parameters that are passed to mitigate SQL-injections
+All ``?`` in queries represent parameters that are passed (with ``VALUES``) to mitigate SQL-injections
 ## User stories
 ### User can create an account 
     ```sql
