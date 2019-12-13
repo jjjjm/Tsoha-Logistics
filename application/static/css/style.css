@@ -24,12 +24,21 @@
   .sidenav a:hover {
     color: #f1f1f1;
   }
+
   .main {
-    margin-left: 160px;
     font-size: 18px;
     padding: 0px 10px;
   }
+
+  .preserve-formatting {
+    white-space: pre-wrap;
+  }
+
   @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
+  }
+
+  @-moz-document url-prefix() {
+    fieldset { display: table-cell; }
   }

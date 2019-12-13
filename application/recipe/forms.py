@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,SelectMultipleField,TextAreaField,FloatField,FormField
+from wtforms import StringField,SelectMultipleField,TextAreaField,FloatField,FormField,HiddenField
 from wtforms import widgets
 from wtforms.widgets.html5 import NumberInput
 from wtforms.validators import (DataRequired,Length,NumberRange)
@@ -7,7 +7,10 @@ from wtforms.validators import (DataRequired,Length,NumberRange)
 
 class RecipeSearchForm(FlaskForm):
     search_term = StringField("Search",validators=[Length(max=30)], 
-                                       description="Search by recipes by recipe name/ingredient keywords, separate keywords with comma (,)\n leave empty for all")
+                                       description="Search recipe name/ingredient keywords, separate keywords with comma (,)\n leave empty for all")
+
+    class Meta:
+        csrf = False
 
 class MultiCheckboxField(SelectMultipleField):
     widget = widgets.ListWidget(html_tag='ul', prefix_label=False)
@@ -20,4 +23,4 @@ class RecipeForm(FlaskForm):
     ingredients = MultiCheckboxField("Select ingredients", choices=[])
     
     class Meta:
-        csrf = False
+        csrf = True

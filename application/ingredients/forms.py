@@ -10,7 +10,7 @@ class IngredientForm(FlaskForm):
                                   validators=[DataRequired("Amount needed"), NumberRange(min=0,message="Amount needs to be atleast 0")])
 
     class Meta:
-        csrf = False
+        csrf = True
 
 class IngredientEditForm(FlaskForm):
     id = IntegerField("id")
@@ -20,7 +20,7 @@ class IngredientEditForm(FlaskForm):
                                   validators=[DataRequired("Amount needed"), NumberRange(min=0,message="Amount needs to be atleast 0")])
 
     class Meta:
-        csrf = False
+        csrf = True
 
 class IngredientAddForm(FlaskForm):
     amount = FloatField("Amount", widget=NumberInput(step=0.001, min = 0),
@@ -28,4 +28,4 @@ class IngredientAddForm(FlaskForm):
                                   validators=[NumberRange(min=0,message="Amount needs to be atleast 0")])
     
     class Meta:
-        csrf = False
+        csrf = True

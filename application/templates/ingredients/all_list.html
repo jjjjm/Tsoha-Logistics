@@ -8,7 +8,7 @@
         <font color="red">{{error}}</font>
         {% endfor %}
         <h2>Select ones you want to add to your own inventory</h2>
-        <table>
+        <table class="table table-hover">
             <tr>
                 <th>Select to add</th>
                 <th>Ingredient</th>
@@ -16,6 +16,7 @@
                 <th>Initial amount</th>
             </tr>
             <form method="POST" action="{{ url_for('ingredient_listing', type='add' )}}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
                 {% for ingredient,form in add_forms %}
                 <tr>
                     <td><input id="is_selected" name="selected" type="checkbox" value={{ingredient.id}}></td>
@@ -25,7 +26,7 @@
                 </tr>
                 {% endfor %}
         </table>
-        <input type="submit" value="Add all selected ingredients" />
+        <input type="submit" value="Add all selected ingredients" class="btn btn-primary"/>
         </form>
     </div>
 </div>

@@ -5,8 +5,14 @@ from functools import wraps
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from flask_bcrypt import Bcrypt
+from flask_wtf.csrf import CSRFProtect
 import os
+
+# session/password-encryption/csrf setup
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
+csrf = CSRFProtect(app)
 
 
 #DB config
@@ -15,8 +21,8 @@ app = Flask(__name__)
 if os.environ.get("HEROKU"):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 else:
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///recipe.db"
-    app.config["SQLALCHEMY_ECHO"]= True
+    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://localconn:localhost@localhost/recipes_local"
+    app.config["SQLALCHEMY_ECHO"] = True
 
 # Login handling
 
@@ -84,3 +90,9 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 db.create_all()
+
+#Populate the db with one admin account if user table is empty
+if not User.query.first():
+    user = User("admin", bcrypt.generate_password_hash("password1").decode("utf-8"), True)
+    db.session.add(user)
+    db.session.commit()

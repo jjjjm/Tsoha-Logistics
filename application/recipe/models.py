@@ -6,7 +6,7 @@ from sqlalchemy import String
 class Recipe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(144), nullable=False)
-    instructions = db.Column(db.String(800), nullable=True)
+    instructions = db.Column(db.Text(), nullable=True)
     picture = db.Column(db.LargeBinary, nullable=True)
 
     def __init__(self, name, instructions):
@@ -33,9 +33,9 @@ class Recipe(db.Model):
         ingredient_keywords = []
         for keyword_number in range(len(keywords)):
             recipe_keywords.append(
-                "r.name LIKE :b{}".format(keyword_number))
+                "r.name ILIKE :b{}".format(keyword_number))
             recipe_keywords.append(
-                "i.name LIKE :b{}".format(keyword_number))
+                "i.name ILIKE :b{}".format(keyword_number))
         return " OR ".join(recipe_keywords + ingredient_keywords)
 
     @staticmethod
@@ -70,9 +70,10 @@ class Recipe(db.Model):
     def find_avaible_recipes(user_id):
         query = text("SELECT DISTINCT r.id as id ,r.name as name "
                      " FROM Recipe r "
-                     " INNER JOIN Recipe_Ingredient ri ON r.id = ri.recipe_id "
+                     " LEFT JOIN Recipe_Ingredient ri ON r.id = ri.recipe_id "
                      " LEFT JOIN Ingredient_User iu ON ri.ingredient_id = iu.ingredient_id"
-                     " WHERE iu.user_id = :id AND iu.amount >= ri.amount").params(id=user_id)
+                     " WHERE iu.user_id = :id AND iu.amount >= ri.amount"
+                     " OR ri.amount IS NULL").params(id=user_id)
         rsp = []
         for row in db.engine.execute(query):
             ing = ({"id": row[0], "name": row[1]})
